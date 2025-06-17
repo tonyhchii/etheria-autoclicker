@@ -20,7 +20,7 @@ class StepItemWidget(QWidget):
         layout.setContentsMargins(5, 0, 5, 0)
 
         step_label = QLabel(
-            f"{step_index+1}: x={step.x}, y={step.y}, r={step.radius}, "
+            f"{step_index+1} {step.name}: x={step.x}, y={step.y}, r={step.radius}, "
             f"delay=({step.delay_min}-{step.delay_max})"
         )
         layout.addWidget(step_label)

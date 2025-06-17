@@ -3,7 +3,8 @@ from typing import List
 
 @dataclass
 class Step:
-    def __init__(self, x, y, radius, delay_min, delay_max):
+    def __init__(self, x, y, radius, delay_min, delay_max, name ="Step"):
+        self.name = name
         self.x = x
         self.y = y
         self.radius = radius
@@ -12,6 +13,7 @@ class Step:
 
     def to_dict(self):
         return {
+            "name": self.name,
             "x": self.x,
             "y": self.y,
             "radius": self.radius,
@@ -22,6 +24,7 @@ class Step:
     @classmethod
     def from_dict(cls, data):
         return cls(
+            name=data["name"],
             x=data["x"],
             y=data["y"],
             radius=data["radius"],

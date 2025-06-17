@@ -3,6 +3,7 @@
     "name": "aaa",
     "steps": [
       {
+        "name": "",
         "x": 736,
         "y": 707,
         "radius": 20,
@@ -10,6 +11,7 @@
         "delay_max": 1.5
       },
       {
+        "name": "",
         "x": 797,
         "y": 666,
         "radius": 20,
@@ -17,6 +19,7 @@
         "delay_max": 1.5
       },
       {
+        "name": "",
         "x": 751,
         "y": 712,
         "radius": 20,
@@ -24,6 +27,7 @@
         "delay_max": 1.5
       },
       {
+        "name": "",
         "x": 1356,
         "y": 529,
         "radius": 20,
@@ -31,6 +35,7 @@
         "delay_max": 1.5
       },
       {
+        "name": "",
         "x": 1578,
         "y": 623,
         "radius": 20,
@@ -38,6 +43,7 @@
         "delay_max": 1.5
       },
       {
+        "name": "",
         "x": 1678,
         "y": 326,
         "radius": 20,
@@ -54,11 +60,244 @@
     "name": "click back",
     "steps": [
       {
-        "x": 2119,
-        "y": 338,
-        "radius": 20,
-        "delay_min": 0.5,
+        "name": "Start Battle",
+        "x": 2028,
+        "y": 1064,
+        "radius": 50,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Marvel S3 click 1",
+        "x": 2057,
+        "y": 1091,
+        "radius": 30,
+        "delay_min": 0.2,
+        "delay_max": 0.6
+      },
+      {
+        "name": "Marvel S3 Click 2",
+        "x": 1502,
+        "y": 585,
+        "radius": 60,
+        "delay_min": 6.0,
+        "delay_max": 10.0
+      },
+      {
+        "name": "Lily S2",
+        "x": 1939,
+        "y": 1098,
+        "radius": 30,
+        "delay_min": 0.3,
+        "delay_max": 1.0
+      },
+      {
+        "name": "Lily S2 SS",
+        "x": 1502,
+        "y": 762,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 4.0
+      },
+      {
+        "name": "SS atk",
+        "x": 1501,
+        "y": 607,
+        "radius": 60,
+        "delay_min": 1.5,
+        "delay_max": 2.0
+      },
+      {
+        "name": "LL S3",
+        "x": 2075,
+        "y": 1092,
+        "radius": 50,
+        "delay_min": 1.0,
+        "delay_max": 2.0
+      },
+      {
+        "name": "LL S3 Click 2",
+        "x": 2077,
+        "y": 1092,
+        "radius": 50,
+        "delay_min": 10.0,
+        "delay_max": 11.0
+      },
+      {
+        "name": "M S3",
+        "x": 2077,
+        "y": 1091,
+        "radius": 40,
+        "delay_min": 1.0,
         "delay_max": 1.5
+      },
+      {
+        "name": "M S3",
+        "x": 2083,
+        "y": 1093,
+        "radius": 40,
+        "delay_min": 4.0,
+        "delay_max": 5.0
+      },
+      {
+        "name": "Lily Attk",
+        "x": 1805,
+        "y": 1102,
+        "radius": 30,
+        "delay_min": 3.0,
+        "delay_max": 4.0
+      },
+      {
+        "name": "SS attk",
+        "x": 1806,
+        "y": 1092,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "LL S2",
+        "x": 1944,
+        "y": 1107,
+        "radius": 40,
+        "delay_min": 1.0,
+        "delay_max": 1.5
+      },
+      {
+        "name": "LL S2",
+        "x": 1946,
+        "y": 1092,
+        "radius": 30,
+        "delay_min": 3.0,
+        "delay_max": 4.0
+      },
+      {
+        "name": "M Atk",
+        "x": 1804,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 1.0,
+        "delay_max": 2.0
+      },
+      {
+        "name": "Lily Atk",
+        "x": 1803,
+        "y": 1104,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "SS S2",
+        "x": 1940,
+        "y": 1102,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "SS S2",
+        "x": 1943,
+        "y": 1099,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+          {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },      
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },      
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },      
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1805,
+        "y": 1105,
+        "radius": 20,
+        "delay_min": 2.0,
+        "delay_max": 3.0
       }
     ]
   }

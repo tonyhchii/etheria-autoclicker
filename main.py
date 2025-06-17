@@ -2,6 +2,7 @@ import sys
 import random
 import pywinctl
 import math
+import ctypes
 import pyautogui
 import time
 import keyboard
@@ -113,6 +114,7 @@ class AutoClickerGUI(QWidget):
         self.window_selector.setMaximumWidth(200)
         self.selected_window = None
         self.stop_flag = False
+        self.overlay = QWidget()
 
         self.show_overlay_btn = QPushButton("Show Overlay")
         self.window_selector_layout.addWidget(self.show_overlay_btn)
@@ -274,7 +276,6 @@ class AutoClickerGUI(QWidget):
             self.refresh_step_list()
             self.overlay.repaint()
 
-
     def edit_step(self, index):
         step = self.current_config.steps[index]
         dialog = EditStepDialog(step, self)
@@ -354,10 +355,8 @@ class AutoClickerGUI(QWidget):
             self.selected_window.activate()
             time.sleep(1)
             x, y = self.random_point_in_circle(step.x, step.y, step.radius)
-            pyautogui.moveTo(x,y)
-            pyautogui.mouseDown(button='left')
-            time.sleep(random.uniform(0.05, 0.1))                      
-            pyautogui.mouseUp(button='left')
+            print(step.name)
+            click(x,y, random.uniform(.05,.1))
             delay = random.uniform(step.delay_min, step.delay_max)
             time.sleep(delay)
 
@@ -375,6 +374,38 @@ class AutoClickerGUI(QWidget):
                 print("Stop key pressed!")
                 self.stop_flag = True
                 break
+
+PUL = ctypes.POINTER(ctypes.c_ulong)
+
+class MouseInput(ctypes.Structure):
+    _fields_ = [("dx", ctypes.c_long),
+                ("dy", ctypes.c_long),
+                ("mouseData", ctypes.c_ulong),
+                ("dwFlags", ctypes.c_ulong),
+                ("time", ctypes.c_ulong),
+                ("dwExtraInfo", PUL)]
+
+class Input_I(ctypes.Union):
+    _fields_ = [("mi", MouseInput)]
+
+class Input(ctypes.Structure):
+    _fields_ = [("type", ctypes.c_ulong),
+                ("ii", Input_I)]
+    
+def click(x, y, hold_time=0.02):
+    ctypes.windll.user32.SetCursorPos(x, y)
+
+    extra = ctypes.c_ulong(0)
+    ii_ = Input_I()
+    ii_.mi = MouseInput(0, 0, 0, 0x0002, 0, ctypes.pointer(extra))  # Mouse down
+    command = Input(ctypes.c_ulong(0), ii_)
+    ctypes.windll.user32.SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
+
+    time.sleep(hold_time) 
+
+    ii_.mi = MouseInput(0, 0, 0, 0x0004, 0, ctypes.pointer(extra))  # Mouse up
+    command = Input(ctypes.c_ulong(0), ii_)
+    ctypes.windll.user32.SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

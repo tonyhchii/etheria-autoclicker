@@ -1,6 +1,6 @@
 from PyQt5.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QLabel,
-    QSpinBox, QDoubleSpinBox, QPushButton
+    QSpinBox, QDoubleSpinBox, QPushButton, QLineEdit
 )
 from models import Step
 
@@ -15,6 +15,9 @@ class EditStepDialog(QDialog):
 
         layout = QVBoxLayout(self)
 
+        self.name_input = QLineEdit()
+        self.name_input.setText(step.name)
+        
         self.x_input = QSpinBox()
         self.x_input.setRange(0, 3000)
         self.x_input.setValue(step.x)
@@ -35,6 +38,8 @@ class EditStepDialog(QDialog):
         self.delay_max_input.setRange(0, 60)
         self.delay_max_input.setValue(step.delay_max)
 
+        layout.addWidget(QLabel("Name:"))
+        layout.addWidget(self.name_input)
         layout.addWidget(QLabel("X:"))
         layout.addWidget(self.x_input)
         layout.addWidget(QLabel("Y:"))
@@ -64,5 +69,6 @@ class EditStepDialog(QDialog):
             y=self.y_input.value(),
             radius=self.radius_input.value(),
             delay_min=self.delay_min_input.value(),
-            delay_max=self.delay_max_input.value()
+            delay_max=self.delay_max_input.value(),
+            name=self.name_input.text()
         )
