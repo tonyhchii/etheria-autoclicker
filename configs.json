@@ -57,7 +57,7 @@
     "steps": []
   },
   {
-    "name": "click back",
+    "name": "SSania",
     "steps": [
       {
         "name": "Start Battle",
@@ -111,7 +111,7 @@
         "name": "LL S3",
         "x": 2075,
         "y": 1092,
-        "radius": 50,
+        "radius": 40,
         "delay_min": 1.0,
         "delay_max": 2.0
       },
@@ -119,7 +119,7 @@
         "name": "LL S3 Click 2",
         "x": 2077,
         "y": 1092,
-        "radius": 50,
+        "radius": 40,
         "delay_min": 10.0,
         "delay_max": 11.0
       },
@@ -207,31 +207,7 @@
         "name": "Step",
         "x": 1801,
         "y": 1103,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },
-      {
-        "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },
-          {
-        "name": "Step",
-        "x": 1801,
-        "y": 1103,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },
-      {
-        "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       },
@@ -239,63 +215,111 @@
         "name": "Step",
         "x": 1801,
         "y": 1103,
-        "radius": 20,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       },
-      {
-        "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },      
       {
         "name": "Step",
         "x": 1801,
         "y": 1103,
-        "radius": 20,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       },
-      {
-        "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },      
       {
         "name": "Step",
         "x": 1801,
         "y": 1103,
-        "radius": 20,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       },
-      {
-        "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
-        "delay_min": 2.0,
-        "delay_max": 3.0
-      },      
       {
         "name": "Step",
         "x": 1801,
         "y": 1103,
-        "radius": 20,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       },
       {
         "name": "Step",
-        "x": 1805,
-        "y": 1105,
-        "radius": 20,
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+            {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
       }

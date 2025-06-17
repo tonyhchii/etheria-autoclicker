@@ -347,6 +347,7 @@ class AutoClickerGUI(QWidget):
                         break
                     self.click_client(step)
                 time.sleep(1)
+            print("end")
         else:
             QMessageBox.warning(self, "No Window", "Select a window")
 
