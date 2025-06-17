@@ -3,13 +3,46 @@ from typing import List
 
 @dataclass
 class Step:
-    x: int
-    y: int
-    radius: int
-    delay_min: float
-    delay_max: float
+    def __init__(self, x, y, radius, delay_min, delay_max):
+        self.x = x
+        self.y = y
+        self.radius = radius
+        self.delay_min = delay_min
+        self.delay_max = delay_max
+
+    def to_dict(self):
+        return {
+            "x": self.x,
+            "y": self.y,
+            "radius": self.radius,
+            "delay_min": self.delay_min,
+            "delay_max": self.delay_max
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            x=data["x"],
+            y=data["y"],
+            radius=data["radius"],
+            delay_min=data["delay_min"],
+            delay_max=data["delay_max"]
+        )
 
 @dataclass
 class Config:
-    name: str
-    steps: List[Step] = field(default_factory=list)
+    def __init__(self, name):
+        self.name = name
+        self.steps: List[Step] = []
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "steps": [step.to_dict() for step in self.steps]
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        cfg = cls(data["name"])
+        cfg.steps = [Step.from_dict(step_data) for step_data in data.get("steps", [])]
+        return cfg

@@ -1,17 +1,27 @@
 import sys
 import random
 import pywinctl
+import math
+import pyautogui
+import time
+import keyboard
+import threading
 from typing import List
 
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QPushButton, QListWidget, QHBoxLayout, QLabel,
-    QInputDialog, QStackedWidget, QMessageBox, QListWidgetItem, QDialog, QComboBox
+    QInputDialog, QStackedWidget, QMessageBox, QListWidgetItem, QDialog, QComboBox, QSpinBox
 )
-from PyQt5.QtCore import Qt, QRect
+from PyQt5.QtCore import Qt, QRect, pyqtSignal
 from PyQt5.QtGui import QBrush, QColor, QPen, QFont, QPainter
 from models import Config, Step
 from step_item_widget import StepItemWidget
 from edit_step_dialog import EditStepDialog
+
+import json
+import os
+
+CONFIG_FILE = "configs.json"
 
 class OverlayControlPanel(QWidget):
     def __init__(self, on_close_callback):
@@ -35,7 +45,8 @@ class OverlayControlPanel(QWidget):
         self.setStyleSheet("background-color: rgba(30, 30, 30, 180); color: white; border-radius: 4px;")
 
 class TransparentOverlay(QWidget):
-    def __init__(self, x, y, width, height):
+    positionClicked = pyqtSignal(int, int) 
+    def __init__(self, x, y, width, height, config: Config):
         super().__init__()
 
         self.setWindowFlags(
@@ -44,26 +55,52 @@ class TransparentOverlay(QWidget):
             Qt.Tool
         )
         self.setAttribute(Qt.WA_TranslucentBackground)
-        self.setAttribute(Qt.WA_TransparentForMouseEvents)  # click-through
         self.setGeometry(x, y, width, height)
+        self.config = config
+        self.active_for_step = False
 
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
-        painter.setBrush(QColor(0, 255, 0, 100))  # semi-transparent green
+
+        painter.setBrush(QColor(0, 255, 0, 100))
         painter.setPen(Qt.NoPen)
         painter.drawRect(self.rect())
+
+
+        painter.setBrush(Qt.NoBrush)
+        step_pen = QPen(QColor(0, 0, 0, 200))  # green
+        step_pen.setWidth(2)
+        painter.setPen(step_pen)
+        font = QFont("Arial", 12, QFont.Bold)
+        painter.setFont(font)
+        
+        if hasattr(self, "config") and self.config:
+            for i, step in enumerate(self.config.steps):
+                local_x = step.x - self.x()
+                local_y = step.y - self.y()
+                radius = step.radius
+
+                rect = QRect(local_x - radius, local_y - radius, radius * 2, radius * 2)
+                painter.drawEllipse(rect)
+                painter.drawText(QRect(local_x - 10, local_y - 10, 20, 20), Qt.AlignCenter, str(i + 1))
+
+    def mousePressEvent(self, event):
+        if self.active_for_step and event.button() == Qt.LeftButton:
+            self.active_for_step = False  # deactivate after first use
+            self.positionClicked.emit(event.x(), event.y())
 
 
 class AutoClickerGUI(QWidget):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Auto Clicker Config")
-        self.resize(500, 600)
+        self.resize(400, 600)
 
         self.configs: List[Config] = []
         self.current_config: Config = None
         self.selected_step_index: int = -1
+        self.repeat = 1
 
         self.main_layout = QVBoxLayout(self)
         self.setLayout(self.main_layout)
@@ -73,6 +110,9 @@ class AutoClickerGUI(QWidget):
         self.window_selector_label = QLabel("Attach to Window:")
         self.window_selector = QComboBox()
         self.window_selector_refresh_btn = QPushButton("⟳")
+        self.window_selector.setMaximumWidth(200)
+        self.selected_window = None
+        self.stop_flag = False
 
         self.show_overlay_btn = QPushButton("Show Overlay")
         self.window_selector_layout.addWidget(self.show_overlay_btn)
@@ -83,6 +123,7 @@ class AutoClickerGUI(QWidget):
         self.window_selector_layout.addWidget(self.window_selector_refresh_btn)
         self.main_layout.addLayout(self.window_selector_layout)
 
+
         self.populate_window_list()
         self.window_selector_refresh_btn.clicked.connect(self.populate_window_list)
 
@@ -91,6 +132,9 @@ class AutoClickerGUI(QWidget):
 
         self.init_config_screen()
         self.init_step_editor_screen()
+
+        self.load_configs()
+        self.config_list.addItems([config.name for config in self.configs])
 
     def init_config_screen(self):
         """Screen to select a config"""
@@ -147,12 +191,25 @@ class AutoClickerGUI(QWidget):
         layout.addWidget(self.add_step_btn)
         self.add_step_btn.clicked.connect(self.add_step)
 
+        self.repeat_label = QLabel("Repeat:")
+        self.repeat_input = QSpinBox()
+        self.repeat_input.setMinimum(1)
+        self.repeat_input.setMaximum(999)  # Arbitrary upper limit
+        self.repeat_input.setValue(self.repeat)  # Default
+        self.repeat_input.valueChanged.connect(self.update_repeat_value)
+        layout.addWidget(self.repeat_input)
+
+        self.start_steps_btn = QPushButton("Start")
+        layout.addWidget(self.start_steps_btn)
+        self.start_steps_btn.clicked.connect(self.start_steps)
+
         self.stack.addWidget(self.step_screen)
         self.back_btn.clicked.connect(self.back_to_config_list)
     
     def show_overlay(self):
         selected_title = self.window_selector.currentText()
         matches = pywinctl.getWindowsWithTitle(selected_title)
+        self.selected_window = matches[0]
 
         if not matches:
             QMessageBox.warning(self, "Not Found", "Target window not found.")
@@ -162,14 +219,14 @@ class AutoClickerGUI(QWidget):
         x, y = target.left, target.top
         w, h = target.width, target.height
 
-        self.overlay = TransparentOverlay(x, y, w, h)
+        self.overlay = TransparentOverlay(x, y, w, h, self.current_config)
         self.overlay.show()
 
-        if not hasattr(self, "overlay_controls"):
-            self.overlay_controls = OverlayControlPanel(self.close_overlay)
-
-        self.overlay_controls.move(x + w - 40, y + 10)  # top-right corner of overlay
+        self.overlay_controls = OverlayControlPanel(self.close_overlay)
+        self.overlay_controls.setParent(None)  # make it a separate floating window
+        self.overlay_controls.move(x + w + 20, y - 20)
         self.overlay_controls.show()
+
 
     def close_overlay(self):
         if hasattr(self, "overlay"):
@@ -193,20 +250,38 @@ class AutoClickerGUI(QWidget):
         self.stack.setCurrentWidget(self.config_screen)
 
     def add_step(self):
-        new_step = Step(x=100, y=100, radius=20, delay_min=0.5, delay_max=1.5)
+        if not hasattr(self, "overlay") or not self.overlay.isVisible():
+            QMessageBox.warning(self, "Overlay Missing", "Overlay must be active to add steps.")
+            return
+
+        self.overlay.active_for_step = True
+        self.overlay.positionClicked.connect(self.handle_overlay_click_for_step)
+
+    def handle_overlay_click_for_step(self, x, y):
+        abs_x = self.overlay.x() + x
+        abs_y = self.overlay.y() + y
+
+        new_step = Step(x=abs_x, y=abs_y, radius=20, delay_min=0.5, delay_max=1.5)
         self.current_config.steps.append(new_step)
         self.refresh_step_list()
+        self.overlay.repaint()
+
+        self.overlay.positionClicked.disconnect(self.handle_overlay_click_for_step)
 
     def delete_step(self, index):
         if 0 <= index < len(self.current_config.steps):
             del self.current_config.steps[index]
             self.refresh_step_list()
+            self.overlay.repaint()
+
+
     def edit_step(self, index):
         step = self.current_config.steps[index]
         dialog = EditStepDialog(step, self)
         if dialog.exec_() == QDialog.Accepted:
             self.current_config.steps[index] = dialog.get_updated_step()
             self.refresh_step_list()
+            self.overlay.repaint()
 
 
     def refresh_step_list(self):
@@ -230,12 +305,76 @@ class AutoClickerGUI(QWidget):
             self.current_config.steps[index - 1], self.current_config.steps[index] = \
                 self.current_config.steps[index], self.current_config.steps[index - 1]
             self.refresh_step_list()
+            self.overlay.repaint()
 
     def move_step_down(self, index):
         if index < len(self.current_config.steps) - 1:
             self.current_config.steps[index + 1], self.current_config.steps[index] = \
                 self.current_config.steps[index], self.current_config.steps[index + 1]
             self.refresh_step_list()
+            self.overlay.repaint()
+
+    def update_repeat_value(self, value):
+        self.repeat = value
+
+    def closeEvent(self, event):
+        self.save_configs()
+        event.accept()
+
+    def save_configs(self):
+        data = [config.to_dict() for config in self.configs]
+        with open(CONFIG_FILE, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def load_configs(self):
+        if not os.path.exists(CONFIG_FILE):
+            return
+        with open(CONFIG_FILE, "r") as f:
+            data = json.load(f)
+            self.configs = [Config.from_dict(cfg_data) for cfg_data in data]
+
+    def start_steps(self):
+        if self.selected_window:
+            self.stop_flag = False
+            self.close_overlay()
+
+            threading.Thread(target=self.listen_for_exit_key, daemon=True).start()
+            for _ in range(self.repeat):
+                for i, step in enumerate(self.current_config.steps):
+                    if self.stop_flag:
+                        self.stop_flag = False
+                        break
+                    self.click_client(step)
+                time.sleep(1)
+        else:
+            QMessageBox.warning(self, "No Window", "Select a window")
+
+    def click_client(self, step):
+        if self.selected_window:
+            self.selected_window.activate()
+            time.sleep(1)
+            x, y = self.random_point_in_circle(step.x, step.y, step.radius)
+            pyautogui.moveTo(x,y)
+            pyautogui.mouseDown(button='left')
+            time.sleep(random.uniform(0.05, 0.1))                      
+            pyautogui.mouseUp(button='left')
+            delay = random.uniform(step.delay_min, step.delay_max)
+            time.sleep(delay)
+
+    def random_point_in_circle(self, cx, cy, radius):
+        r = radius * math.sqrt(random.random())  # uniform distribution
+        theta = random.uniform(0, 2 * math.pi)
+        x = cx + r * math.cos(theta)
+        y = cy + r * math.sin(theta)
+        return int(x), int(y)
+    
+    def listen_for_exit_key(self):
+    # Runs in a background thread
+        while True:
+            if keyboard.is_pressed('q') or keyboard.is_pressed('esc'):
+                print("Stop key pressed!")
+                self.stop_flag = True
+                break
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
