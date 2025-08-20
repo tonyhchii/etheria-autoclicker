@@ -98,6 +98,7 @@ class AutoClickerGUI(QWidget):
         self.setWindowTitle("Auto Clicker Config")
         self.resize(400, 600)
 
+
         self.configs: List[Config] = []
         self.current_config: Config = None
         self.selected_step_index: int = -1
@@ -137,6 +138,9 @@ class AutoClickerGUI(QWidget):
 
         self.load_configs()
         self.config_list.addItems([config.name for config in self.configs])
+
+        self.keyboard_thread = None
+
 
     def init_config_screen(self):
         """Screen to select a config"""
@@ -192,6 +196,10 @@ class AutoClickerGUI(QWidget):
         self.add_step_btn = QPushButton("Add Step")
         layout.addWidget(self.add_step_btn)
         self.add_step_btn.clicked.connect(self.add_step)
+
+        self.save_step_btn = QPushButton("Save Steps")
+        layout.addWidget(self.save_step_btn)
+        self.save_step_btn.clicked.connect(self.save_configs)
 
         self.repeat_label = QLabel("Repeat:")
         self.repeat_input = QSpinBox()
@@ -263,7 +271,7 @@ class AutoClickerGUI(QWidget):
         abs_x = self.overlay.x() + x
         abs_y = self.overlay.y() + y
 
-        new_step = Step(x=abs_x, y=abs_y, radius=20, delay_min=0.5, delay_max=1.5)
+        new_step = Step(x=abs_x, y=abs_y, radius=30, delay_min=2, delay_max=3)
         self.current_config.steps.append(new_step)
         self.refresh_step_list()
         self.overlay.repaint()
@@ -339,7 +347,10 @@ class AutoClickerGUI(QWidget):
             self.stop_flag = False
             self.close_overlay()
 
-            threading.Thread(target=self.listen_for_exit_key, daemon=True).start()
+            if not self.keyboard_thread or not self.keyboard_thread.is_alive():
+                self.keyboard_thread = threading.Thread(target=self.listen_for_exit_key, daemon=True)
+                self.keyboard_thread.start()
+
             for _ in range(self.repeat):
                 for i, step in enumerate(self.current_config.steps):
                     if self.stop_flag:
@@ -374,6 +385,7 @@ class AutoClickerGUI(QWidget):
             if keyboard.is_pressed('q') or keyboard.is_pressed('esc'):
                 print("Stop key pressed!")
                 self.stop_flag = True
+                self.keyboard_thread = None
                 break
 
 PUL = ctypes.POINTER(ctypes.c_ulong)

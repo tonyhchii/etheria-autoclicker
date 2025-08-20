@@ -17,38 +17,6 @@
         "radius": 20,
         "delay_min": 0.5,
         "delay_max": 1.5
-      },
-      {
-        "name": "",
-        "x": 751,
-        "y": 712,
-        "radius": 20,
-        "delay_min": 0.5,
-        "delay_max": 1.5
-      },
-      {
-        "name": "",
-        "x": 1356,
-        "y": 529,
-        "radius": 20,
-        "delay_min": 0.5,
-        "delay_max": 1.5
-      },
-      {
-        "name": "",
-        "x": 1578,
-        "y": 623,
-        "radius": 20,
-        "delay_min": 0.5,
-        "delay_max": 1.5
-      },
-      {
-        "name": "",
-        "x": 1678,
-        "y": 326,
-        "radius": 20,
-        "delay_min": 0.5,
-        "delay_max": 1.5
       }
     ]
   },
@@ -57,7 +25,7 @@
     "steps": []
   },
   {
-    "name": "SSania",
+    "name": "click back",
     "steps": [
       {
         "name": "Start Battle",
@@ -299,7 +267,15 @@
         "delay_min": 2.0,
         "delay_max": 3.0
       },
-            {
+      {
+        "name": "Step",
+        "x": 1801,
+        "y": 1103,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
         "name": "Step",
         "x": 1801,
         "y": 1103,
@@ -314,11 +290,389 @@
         "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
+      }
+    ]
+  },
+  {
+    "name": "SSANIA rehash",
+    "steps": [
+      {
+        "name": "Start",
+        "x": 2016,
+        "y": 1061,
+        "radius": 30,
+        "delay_min": 1.0,
+        "delay_max": 2.0
+      },
+      {
+        "name": "Lily S2",
+        "x": 1938,
+        "y": 1094,
+        "radius": 30,
+        "delay_min": 1.0,
+        "delay_max": 1.5
+      },
+      {
+        "name": "Lily SS",
+        "x": 1504,
+        "y": 752,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "SS 1",
+        "x": 1503,
+        "y": 599,
+        "radius": 30,
+        "delay_min": 3.0,
+        "delay_max": 3.5
+      },
+      {
+        "name": "M 3",
+        "x": 2068,
+        "y": 1096,
+        "radius": 30,
+        "delay_min": 1.0,
+        "delay_max": 1.5
+      },
+      {
+        "name": "M S3",
+        "x": 1514,
+        "y": 592,
+        "radius": 30,
+        "delay_min": 5.0,
+        "delay_max": 6.0
+      },
+      {
+        "name": "LL S3",
+        "x": 2072,
+        "y": 1090,
+        "radius": 30,
+        "delay_min": 1.5,
+        "delay_max": 2.0
+      },
+      {
+        "name": "LL S3",
+        "x": 2071,
+        "y": 1098,
+        "radius": 30,
+        "delay_min": 7,
+        "delay_max": 8
+      },
+      {
+        "name": "Lily 1",
+        "x": 1515,
+        "y": 637,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "SS 1",
+        "x": 1517,
+        "y": 618,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "M 3",
+        "x": 2078,
+        "y": 1090,
+        "radius": 30,
+        "delay_min": 1.0,
+        "delay_max": 1.5
+      },
+      {
+        "name": "M 3",
+        "x": 1537,
+        "y": 619,
+        "radius": 30,
+        "delay_min": 3,
+        "delay_max": 4
+      },
+      {
+        "name": "LL 2",
+        "x": 1933,
+        "y": 1099,
+        "radius": 30,
+        "delay_min": 1,
+        "delay_max": 2
+      },
+      {
+        "name": "LL 2",
+        "x": 1942,
+        "y": 1089,
+        "radius": 30,
+        "delay_min": 2.5,
+        "delay_max": 3.5
+      },
+      {
+        "name": "Lily 1",
+        "x": 1545,
+        "y": 605,
+        "radius": 30,
+        "delay_min": 2.5,
+        "delay_max": 3.0
+      },
+      {
+        "name": "SS 2",
+        "x": 1936,
+        "y": 1100,
+        "radius": 30,
+        "delay_min": 1,
+        "delay_max": 2
+      },
+      {
+        "name": "SS 2",
+        "x": 1454,
+        "y": 621,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
       },
       {
         "name": "Step",
-        "x": 1801,
-        "y": 1103,
+        "x": 1508,
+        "y": 612,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1525,
+        "y": 607,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1507,
+        "y": 609,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1527,
+        "y": 619,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1521,
+        "y": 599,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1523,
+        "y": 614,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1525,
+        "y": 596,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1500,
+        "y": 595,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1511,
+        "y": 604,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1476,
+        "y": 605,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1538,
+        "y": 602,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1525,
+        "y": 596,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1500,
+        "y": 595,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1511,
+        "y": 604,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1476,
+        "y": 605,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      },
+      {
+        "name": "Step",
+        "x": 1538,
+        "y": 602,
+        "radius": 30,
+        "delay_min": 2,
+        "delay_max": 3
+      }
+    ]
+  },
+  {
+    "name": "Hoyan SSania",
+    "steps": [
+      {
+        "name": "Start Fight",
+        "x": 2036,
+        "y": 1069,
+        "radius": 30,
+        "delay_min": 4.0,
+        "delay_max": 5.0
+      },
+      {
+        "name": "K S3",
+        "x": 2068,
+        "y": 1095,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "K S3",
+        "x": 2070,
+        "y": 1096,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "SS 1",
+        "x": 1428,
+        "y": 456,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Lily 2",
+        "x": 1928,
+        "y": 1108,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Lily 2 SS",
+        "x": 1051,
+        "y": 761,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Val S3",
+        "x": 2069,
+        "y": 1092,
+        "radius": 30,
+        "delay_min": 1.5,
+        "delay_max": 2.0
+      },
+      {
+        "name": "Val S3",
+        "x": 2065,
+        "y": 1084,
+        "radius": 30,
+        "delay_min": 4.0,
+        "delay_max": 5.0
+      },
+      {
+        "name": "SS 1",
+        "x": 1444,
+        "y": 467,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "K S3",
+        "x": 2071,
+        "y": 1099,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "K  3",
+        "x": 2073,
+        "y": 1095,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "Lily1",
+        "x": 1444,
+        "y": 483,
+        "radius": 30,
+        "delay_min": 5.0,
+        "delay_max": 6.0
+      },
+      {
+        "name": "SS 1",
+        "x": 1464,
+        "y": 530,
+        "radius": 30,
+        "delay_min": 2.0,
+        "delay_max": 3.0
+      },
+      {
+        "name": "lily 1",
+        "x": 1447,
+        "y": 489,
         "radius": 30,
         "delay_min": 2.0,
         "delay_max": 3.0
